@@ -1,4 +1,4 @@
-DROP TABLE USER_ROLE CASCADE;
+
 CREATE  TABLE USER_ROLE(
 id            SERIAL       PRIMARY KEY,
 user_role     INTEGER,

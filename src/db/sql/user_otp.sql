@@ -1,4 +1,3 @@
-DROP TABLE USER_OTP CASCADE;
 CREATE  TABLE USER_OTP(
 id            SERIAL       PRIMARY KEY        ,
 user_role     VARCHAR(64) UNIQUE   ,

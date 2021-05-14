@@ -1,14 +1,13 @@
 const express =require('express');
-let app = express();
-const dotenv = require('dotenv');
-dotenv.config();
 const imported = require('./src/middleware/directly-imported-libs')
+const dotenv = require('dotenv');
+const User_Router = require('./src/routes/user')
+const cookieParser = require("cookie-parser");
+let app = express();
+dotenv.config();
+app.use(cookieParser());
 app = imported(app)
-let PORT = process.env.PORT
-if(process.env.NODE_ENV!='production')
-{
-    PORT = 5000
-}
-app.listen(PORT,()=>{
-    console.log(`Server running at ${PORT}`)
+app.use(User_Router)
+app.listen(process.env.PORT,()=>{
+    console.log(`Server running at ${process.env.PORT}`)
 })

@@ -1,4 +1,4 @@
-DROP TABLE user_details;
+
 CREATE  TABLE user_details(
 id  BIGINT,
 first_name VARCHAR(32),
