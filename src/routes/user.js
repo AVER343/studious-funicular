@@ -3,7 +3,8 @@ const router =express.Router()
 var { body, validationResult }  = require('express-validator');
 const sgMail = require('@sendgrid/mail');
 const User = require('../db/orm/user')
-let defaultError = require('../utils/error-handling/error')
+let defaultError = require('../utils/error-handling/error');
+const authentication = require('../middleware/auth');
 router.post('/register',
         body('email').isEmail(),
         body('password').isLength({min:5}),
@@ -43,7 +44,7 @@ async(req,res)=>{
         await User.findOne({email})
         let user = await User.verifyLogin(email,password)
         await user.createJWT()
-        res.send(user)
+        res.cookie('JWT',user.jwt,{maxAge:120*60*1000}).send(user)
    }
    catch(e){
        defaultError({res,e})
@@ -89,5 +90,8 @@ router.post('/email/otp',
         defaultError({res,e})
     }
  })
-
+router.get('/logout',authentication,async(req,res)=>{
+    res.clearCookie('as');
+    res.send({messages:[{message:'You have successfully logged out ! '}]})
+})
 module.exports = router

@@ -59,7 +59,7 @@ class User{
           }
         await sgMail.send(msg)
     }
-    static async findOne({email}){
+    static async findOne({email,withFields=false}){
         const user = await pool.query('SELECT * FROM USERS WHERE email = $1',[email]);
         if(user.rowCount==0)
         {
@@ -92,8 +92,6 @@ class User{
     static async verifyOTP({email,otp}){
         try{
             const user = await User.findOne({email})
-            const qu = await pool.query('select * from user_otp');
-            console.log({qu:qu.rows})
             const  database_otp = await pool.query(`SELECT * FROM USER_OTP
                                                      WHERE user_id= $1 and otp = $2  
                                                      and id = (SELECT MAX(id) FROM USER_OTP WHERE user_id= $1)
