@@ -91,7 +91,7 @@ router.post('/email/otp',
     }
  })
 router.get('/logout',authentication,async(req,res)=>{
-    res.clearCookie('as');
+    res.clearCookie('JWT');
     res.send({messages:[{message:'You have successfully logged out ! '}]})
 })
 module.exports = router

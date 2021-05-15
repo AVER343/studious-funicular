@@ -3,10 +3,10 @@ const jwt = require('jsonwebtoken')
 const User = require("../db/orm/user")
 let authentication =async(req,res,next)=>{
    try{
-    if(!req.cookies && req.cookies.JWT)
-    {
-       throw new Error('Unauthenticated !')
-    }
+       if(!req.cookies.JWT)
+       {
+            return defaultError({res,e:{message:'Unauthenticated ! '}})
+       }
     const JWT = req.cookies.JWT 
     let verified_user = await jwt.verify(JWT,process.env.JWT_SECRET)
     if(!verified_user){
