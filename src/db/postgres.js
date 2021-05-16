@@ -5,7 +5,7 @@ let config
   config = {
   database:'postgres',
   password:'postgres',
-  user:'postgres'
+  user:'postgres',
 }
 if(process.env.NODE_ENV=='production')
 {
