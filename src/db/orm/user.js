@@ -23,6 +23,11 @@ class User{
             {
                 throw new Error('User with email exists !')
             }
+        user = await pool.query('SELECT * FROM USERS where user_name = $1;',[this.user_name])
+            if(user.rowCount!=0)
+            {
+                throw new Error(`User with Username exists !`)
+            }
             let new_user = await pool.query(
                 `INSERT INTO USERS(user_name , email , password) VALUES($1,$2,$3) RETURNING *;`,
                 [this.user_name,this.email,this.password])

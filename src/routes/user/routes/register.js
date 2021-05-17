@@ -27,6 +27,7 @@ router.post('/register',
                res.status(201).send({user})
             }
             catch(e){
+                console.log(JSON.stringify(e))
                 defaultError({res,e})
             }
 })
