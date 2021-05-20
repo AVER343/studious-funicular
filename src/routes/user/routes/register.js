@@ -2,8 +2,8 @@ const express = require('express')
 const router =express.Router()
 var { body, validationResult }  = require('express-validator');
 const sgMail = require('@sendgrid/mail');
-const User = require('../../../db/orm/user');
-const defaultError = require('../../../utils/error-handling/error');
+const User = require('../../../db/orm/user/index');
+const defaultError = require('../../../utils/response-handling/response-handling(default_error)');
 router.post('/register',
         body('email').isEmail(),
         body('password').isLength({min:5}),
@@ -21,13 +21,12 @@ router.post('/register',
                     throw new Error('Password and Confirm Password are not same.')
                 }
                 let user = new User({user_name,email,password})
-                await user.save()
-                await user.sendEmailVerificationMail({reset_password:false})
-                delete user.jwt
+                await user.createUser()
+                user.deleteFields()
                res.status(201).send({user})
             }
             catch(e){
-                console.log(JSON.stringify(e))
+
                 defaultError({res,e})
             }
 })

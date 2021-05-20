@@ -2,7 +2,7 @@ const express = require('express')
 const router =express.Router()
 var { body, validationResult }  = require('express-validator');
 const User = require('../../../db/orm/user');
-const defaultError = require('../../../utils/error-handling/error');
+const defaultError = require('../../../utils/response-handling/response-handling(default_error)');
 router.post('/email/otp',
             body('email').isEmail(),
             body('otp').isLength({min:4}),

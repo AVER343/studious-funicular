@@ -3,7 +3,7 @@ const router =express.Router()
 var { body, validationResult }  = require('express-validator');
 const sgMail = require('@sendgrid/mail');
 const User = require('../../../db/orm/user');
-const defaultError = require('../../../utils/error-handling/error');
+const defaultError = require('../../../utils/response-handling/response-handling(default_error)');
 // const authentication = require('../../../middleware/auth')
 router.post('/reset/password',
     body('email').isEmail(),

@@ -1,4 +1,4 @@
-const defaultError = require("../utils/error-handling/error")
+const defaultError = require("../utils/response-handling/response-handling(default_error)")
 const jwt = require('jsonwebtoken')
 const User = require("../db/orm/user")
 let authentication =async(req,res,next)=>{
