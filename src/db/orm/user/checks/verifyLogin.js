@@ -2,7 +2,7 @@ const pool = require("../../../postgres")
 const bcrypt = require('bcryptjs')
 const User = require("../index")
 async function verifyLogin({email,user_name,password}){
-    let user = await this.constructor.find({email,user_name})
+    let user = await this.constructor.findOne({email,user_name})
     if(user.length==0)
     {
         throw new Error('No user with the provided Email exists !')
@@ -16,11 +16,11 @@ async function verifyLogin({email,user_name,password}){
     {
        throw new Error('Invalid credentials !')
     }
-    if(!user.rows[0]['email_verified'])
+    if(!user[0]['email_verified'])
     {
         throw new Error('Please verify your email !')
     }
-    let new_user = new User({...user.rows[0]})
+    let new_user = new this.constructor({...user[0]})
     return new_user
 }
 module.exports = verifyLogin

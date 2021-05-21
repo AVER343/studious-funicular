@@ -15,8 +15,11 @@ class User{
         keys.map(e=>{
             this[e] = params[e]
         })
-      this.password = bcrypt.hashSync(params.password,parseInt(process.env.HASHING_ITERATIONS))
-      this.set_this_in_constructor()
+        if(this['password'])
+        {
+            this.password = bcrypt.hashSync(params.password,parseInt(process.env.HASHING_ITERATIONS))
+        }
+        this.set_this_in_constructor()
     }
     static async find({email,user_name}){
        try{
