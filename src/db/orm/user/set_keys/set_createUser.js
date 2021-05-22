@@ -2,7 +2,7 @@ const pool = require('../../../postgres')
 let bcrypt = require('bcryptjs')
 let jwt = require('jsonwebtoken')
 async function createUser() {
-        let existing_user =  await this.constructor.find({email:this.email,user_name:this.user_name})
+        let existing_user =  await this.find({email:this.email,user_name:this.user_name})
         if(existing_user.length>0)
             {
                 if(this.email == existing_user[0].email)

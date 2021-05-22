@@ -9,6 +9,8 @@ const set_create_user = require('./set_keys/set_createUser');
 const generateOTP = require('./generate/generate_OTP');
 const createUser = require('./set_keys/set_createUser');
 const verifyLogin = require('./checks/verifyLogin');
+const verifyOTP  = require('../user/checks/verifyOTP');
+const addEmailToDatabase = require('../email/addEmailToDatabase');
 class User{
     constructor(params){
         let keys = Object.keys(params)
@@ -20,23 +22,6 @@ class User{
             this.password = bcrypt.hashSync(params.password,parseInt(process.env.HASHING_ITERATIONS))
         }
         this.set_this_in_constructor()
-    }
-    static async find({email,user_name}){
-       try{
-            let users =  await check_find({email,user_name})
-            return users 
-        }
-       catch(e){
-           throw new Error(e.message)
-       }
-    }
-    static async findOne({email,user_name}){
-        try{
-            return await check_find_One({email,user_name})
-        }
-        catch(e){
-            throw new Error(e.message)
-        }
     }
     static async generate_static_OTP(email){
         try{
@@ -60,11 +45,15 @@ class User{
         }
     }
     set_this_in_constructor(){
+        this.find = check_find
+        this.findOne = check_find_One
         this.createUser = createUser
         this.generate_change_password =generate_change_password
         this.generateOTP = generateOTP
         this.setJWT = setJWT
         this.verifyLogin = verifyLogin
+        this.verifyOTP = verifyOTP
+        this.addEmailToDatabase = addEmailToDatabase
     }
 }
 module.exports = User

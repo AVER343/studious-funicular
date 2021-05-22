@@ -10,7 +10,10 @@ class User{
         keys.map(e=>{
             this[e] = params[e]
         })
-      this.password = bcrypt.hashSync(params.password,parseInt(process.env.HASHING_ITERATIONS))
+      if(this['password'])
+      {
+        this.password = bcrypt.hashSync(params.password,parseInt(process.env.HASHING_ITERATIONS))
+      }
     }
     async sendEmailVerificationMail({reset_password = false}){
         const user = this;

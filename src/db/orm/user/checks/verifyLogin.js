@@ -1,11 +1,12 @@
 const pool = require("../../../postgres")
 const bcrypt = require('bcryptjs')
 const User = require("../index")
+const { NO_USER_FOUND } = require("../error_statements")
 async function verifyLogin({email,user_name,password}){
-    let user = await this.constructor.findOne({email,user_name})
+    let user = await this.findOne({email,user_name})
     if(user.length==0)
     {
-        throw new Error('No user with the provided Email exists !')
+        throw new Error(NO_USER_FOUND)
     }
     if(user.length>1)
     {

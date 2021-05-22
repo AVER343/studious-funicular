@@ -1,6 +1,7 @@
 const express = require('express')
 const router =express.Router()
 var { body, validationResult }  = require('express-validator');
+const { NO_USER_FOUND } = require('../../../db/orm/user/error_statements');
 const User = require('../../../db/orm/user/index')
 let defaultError = require('../../../utils/response-handling/response-handling(default_error)');
 router.post('/login',
@@ -12,9 +13,14 @@ async(req,res)=>{
             if (!errors.isEmpty()){
                 return defaultError({e:errors.array(),res})
             }
-        let {email,password} = req.body
-        await User.findOne({email})
-        let user = new User({email,password})
+        let {email,user_name,password} = req.body
+        let user = new User({email})
+        user= await user.findOne({email,user_name})
+        if(user.length==0)
+        {
+            throw new Error(NO_USER_FOUND)
+        }
+        user = new User({email})
         user = await user.verifyLogin({email,password})
         await user.setJWT()
         user.deleteFields()

@@ -1,5 +1,5 @@
 const pool = require('../../../postgres')
-const add_and=(no_of_arguments,query)=>no_of_arguments>1?query+' and ':query
+const add_and=(no_of_arguments,query)=>no_of_arguments>1?query+' or ':query
 const check_find = async({email,user_name})=>{
     let query= `SELECT * FROM USERS `
     let no_of_arguments = 1

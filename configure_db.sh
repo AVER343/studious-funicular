@@ -10,4 +10,6 @@ psql -U postgres  < ./src/db/sql/users.sql
 psql -U postgres  < ./src/db/sql/user_details.sql
 psql -U postgres  < ./src/db/sql/user_role.sql
 psql -U postgres  < ./src/db/sql/user_otp.sql
+psql -U postgres  < ./src/db/sql/send_email_type.sql
+psql -U postgres  < ./src/db/sql/send_email.sql
 echo "Configured database"
