@@ -4,7 +4,7 @@ const schedule = require('node-schedule');
 const bodyParser = require('body-parser')
 const sendCronEmail = require('../utils/email/sendEmail');
 
-const job = schedule.scheduleJob('* * * * * * *',async function(){
+const job = schedule.scheduleJob('*/60 * * * * *',async function(){
   try{
     sendCronEmail()
   }

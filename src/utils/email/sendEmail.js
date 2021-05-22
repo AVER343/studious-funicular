@@ -6,7 +6,7 @@ const sendCronEmail =async()=>{
     let emails =  await pool.query(`SELECT SE.* FROM SEND_EMAIL SE
         JOIN USERS U ON U.email = SE.email
         WHERE status=1 and send_time < now() 
-        and SE.id in (SELECT MAX(id),email FROM SEND_EMAIL GROUP BY email);`,[]);
+        and SE.id in (SELECT MAX(id) FROM SEND_EMAIL GROUP BY email,email_type);`,[]);
     let promises =[]
     promises= emails.rows.map(e=>funcs[e['email_type']-1]({OTP: e['data']['OTP'], name: e['user_name'] ,email: e['email']}))                                    
     let response = await Promise.allSettled(promises)
