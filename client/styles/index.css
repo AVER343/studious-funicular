@@ -1,0 +1,346 @@
+
+:root {
+  --text-color: var(--text-primary);
+  --nav-size: 60px;
+  --border: 1px solid #474a4d;
+  --border-radius: 8px;
+  --speed: 500ms; 
+}
+
+a {
+  color: var(--text-color) !important;
+  text-decoration: none !important;
+  
+}
+
+/* Top Navigation Bar */
+
+/* <nav> */
+.header {
+  height: var(--nav-size);
+  background-color: var(--bg-primary);
+  padding: 0 1rem;
+  border-bottom: var(--border);
+}
+
+/* <ul> */
+.header-nav {
+  max-width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content:flex-end;
+}
+
+/* <li> */
+.header-item {
+  width: calc(var(--nav-size) * 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header-item:first-child{
+  margin-right: auto;
+}
+
+/* Icon Button */
+.icon-button {
+  --button-size: calc(var(--nav-size) * 0.5);
+  width: var(--button-size);
+  height: var(--button-size);
+  background-color: var(--bg-secondary);
+  border-radius: 50%;
+  padding: 5px;
+  margin: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: filter 300ms;
+}
+
+.icon-button:hover {
+  filter: brightness(1.2);
+}
+
+.icon-button svg { 
+  fill: var(--text-color);
+  width: 20px;
+  height: 20px;
+}
+
+
+/* Dropdown Menu */
+
+.dropdown {
+  position: absolute;
+  top: 58px;
+  width: 300px;
+  transform: translateX(-45%);
+  background-color: var(--bg-secondary);
+  border: var(--border);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  overflow:hidden;
+  transition: height var(--speed) ease;
+}
+
+.menu {
+  width: 100%;
+  color: black;
+}
+
+.menu-item {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  border-radius: var(--border-radius);
+  transition: var(--speed);
+  padding: 0.5rem;
+}
+
+.menu-item .icon-button {
+  margin-right: 0.5rem;
+}
+.menu-item:hover{
+  color:white;
+}
+
+.menu-item .icon-button:hover {
+  filter: none;
+}
+
+.menu-item:hover {
+  background-color: var(--bg-primary);
+  color:var(--text-primary) !important;
+}
+
+.icon-right {
+  margin-left: auto;
+}
+
+/* CSSTransition classes  */
+.menu-primary-enter {
+  position: absolute;
+  transform: translateX(-110%);
+}
+.menu-primary-enter-active {
+  transform: translateX(0%);
+  transition: all var(--speed) ease;
+}
+.menu-primary-exit {
+  position: absolute;
+}
+.menu-primary-exit-active {
+  transform: translateX(-110%);
+  transition: all var(--speed) ease;
+}
+
+
+.menu-secondary-enter {
+  transform: translateX(110%);
+}
+.menu-secondary-enter-active {
+  transform: translateX(0%);
+  transition: all var(--speed) ease;
+}
+.menu-secondary-exit {
+
+}
+.menu-secondary-exit-active {
+  transform: translateX(110%);
+  transition: all var(--speed) ease;
+}@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+body::-webkit-scrollbar-track {
+    background: #1e1e24;
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background: #6649b8;
+  }
+  
+.navbar {
+    position:fixed;
+    background-color: var(--bg-primary);
+    transition: width 600ms ease;
+    overflow:scroll;
+    border-right:5px solid var(--bg-secondary);
+  }
+  
+  .navbar-nav {
+    list-style: none;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .nav-item {
+    width: 100%;
+  }
+  
+  .nav-item:last-child {
+    margin-top: auto;
+  }
+  
+  .nav-link {
+    display: flex;
+    align-items: center;
+    height: 5rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    filter: grayscale(100%) opacity(0.7);
+    transition: var(--transition-speed);
+  }
+  
+  .nav-link:hover {
+    filter: grayscale(0%) opacity(1);
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+  }
+  
+  .link-text {
+    display: none;
+    margin-left: 2rem;
+    font-weight: 800;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .nav-link svg {
+    width: 2rem;
+    min-width: 2rem;
+    margin: 0 1.5rem;
+  }
+  
+  .fa-primary {
+    color: #ff7eee;
+  }
+  
+  .fa-secondary {
+    color: #df49a6;
+  }
+  
+  .fa-primary,
+  .fa-secondary {
+    transition: var(--transition-speed);
+  }
+  
+  .logo {
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: var(--text-secondary);
+    background: var(--bg-secondary);
+    font-size: 1.5rem;
+    letter-spacing: 0.3ch;
+    width: 100%;
+  }
+  
+  .logo svg {
+    transform: rotate(0deg);
+    transition: var(--transition-speed);
+  }
+  
+  .logo-text
+  {
+    display: inline;
+    position: absolute;
+    left: -999px;
+    transition: var(--transition-speed);
+  }
+  
+  .navbar:hover .logo svg {
+    transform: rotate(-180deg);
+  }
+  
+  /* Small screens */
+  @media only screen and (max-width: 600px) {
+    .navbar {
+      padding-top: 0;
+      bottom: 0;
+      width: 100vw;
+      height: 5rem;
+      overflow:scroll;
+    }
+  
+    .logo {
+      display: none;
+    }
+  
+    .navbar-nav {
+      flex-direction: row;
+    }
+  
+    .nav-link {
+      justify-content: center;
+    }
+  
+    main {
+      margin: 0;
+    }
+  }
+  
+  /* Large screens */
+  @media only screen and (min-width: 600px) {
+    .navbar {
+      padding-top: 0;
+      top: 0;
+      width: 7rem;
+      height: 100vh;
+    }
+  
+    .navbar:hover {
+      width: 16rem;
+    }
+  
+    .navbar:hover .link-text {
+      display: inline;
+    }
+  
+    .navbar:hover .logo svg
+    {
+      margin-left: 11rem;
+    }
+  
+    .navbar:hover .logo-text
+    {
+      left: 0px;
+    }
+  }
+  
+  .dark {
+    --text-primary: var(--chakra-colors-gray-200);
+    --text-secondary:  var(--chakra-colors-gray-700);
+    --bg-primary: var(--chakra-colors-gray-700);
+    --bg-secondary: var(--chakra-colors-gray-200);
+  }
+  
+  .light {
+    --text-primary: var(--chakra-colors-gray-300);
+    --text-secondary: var(--chakra-colors-gray-700);
+    --bg-primary: var(--chakra-colors-blue-600);;
+    --bg-secondary: var(--chakra-colors-blue-300);;
+  }
+  
+  .solar {
+    --text-primary: #949494;
+    --text-secondary: #35535c;
+    --bg-primary: #fdf6e3;
+    --bg-secondary: #f3e1ae;
+  }
+  
+  .theme-icon {
+    display: none;
+  }
+  
+  .dark #darkIcon {
+    display: block;
+  }
+  
+  .light #lightIcon {
+    display: block;
+  }
+  
+  .solar #solarIcon {
+    display: block;
+  }

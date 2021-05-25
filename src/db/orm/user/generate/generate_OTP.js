@@ -14,6 +14,7 @@ async function generateOTP(email){
     {
         throw new Error(NO_USER_FOUND)
     }
+    OTP = Math.ceil(OTP)
     await pool.query('INSERT INTO USER_OTP(user_id,otp) VALUES($1,$2);',[user[0].id,OTP])
     return OTP
 }

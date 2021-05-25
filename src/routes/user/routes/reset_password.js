@@ -1,5 +1,6 @@
 const express = require('express')
 const router =express.Router()
+const bcrypt = require('bcryptjs')
 var { param, body, validationResult ,header }  = require('express-validator');
 const User = require('../../../db/orm/user/index');
 const defaultError = require('../../../utils/response-handling/response-handling(default_error)');
@@ -21,7 +22,7 @@ router.post('/reset/password',
             {
                 throw new Error(NO_USER_FOUND)
             }
-            await user.verifyOTP({email,otp})
+            await user.verifyOTP({email,otp,user:existing_user[0]})
             res.send({messages:[{message:'Password has been changed !'}]})
     }
     catch(e){

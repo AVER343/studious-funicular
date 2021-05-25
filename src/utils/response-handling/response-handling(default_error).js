@@ -12,8 +12,9 @@ const defaultError =({res,e,status=400,type='error'})=>{
             overall_obj[types] = [{type,message:e.detail}]
             return res.status(status).send(overall_obj)
         }
-    if(e.length>0 && typeof e !='string')
+    if(e.length>0 && typeof e =='object')
     {
+        console.log({e})
         overall_obj[types] = e.map(e=>({type,message:e.msg}))
         return res.status(status).send(overall_obj)
     }

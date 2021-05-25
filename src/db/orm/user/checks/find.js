@@ -18,6 +18,7 @@ const check_find = async({email,user_name})=>{
     }
     query= query +';'
     const  user = await pool.query(query,args)
+    console.log('found !')
     return user.rows
  }
 

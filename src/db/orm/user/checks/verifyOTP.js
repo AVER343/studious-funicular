@@ -1,7 +1,9 @@
 const pool = require("../../../postgres");
 const { NO_USER_FOUND } = require("../error_statements");
-async function verifyOTP({email,otp}){
-        const user = (await this.findOne({email}))[0]
+async function verifyOTP({email,otp,user}){
+        if(!user){
+        user = (await this.findOne({email}))[0]
+        }
         if(user.length==0)
         {
             throw new Error(NO_USER_FOUND)

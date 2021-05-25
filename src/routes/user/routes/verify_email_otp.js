@@ -13,8 +13,8 @@ router.post('/email/otp',
         if (!errors.isEmpty()){
             return defaultError({e:errors.array(),res})
         }
-         let {email,otp,password} = req.body
-        let user = new User({email,password})
+         let {email,otp} = req.body
+        let user = new User({email})
         user = await user.verifyOTP({email,otp})
         await pool.query('UPDATE USERS SET EMAIL_VERIFIED = true where id = $1'[user.id])
          res.send(user)
