@@ -309,17 +309,17 @@ body::-webkit-scrollbar-track {
   }
   
   .dark {
-    --text-primary: var(--chakra-colors-gray-200);
+    --text-primary: #4FD1C5;
     --text-secondary:  var(--chakra-colors-gray-700);
     --bg-primary: var(--chakra-colors-gray-700);
     --bg-secondary: var(--chakra-colors-gray-200);
   }
   
   .light {
-    --text-primary: var(--chakra-colors-gray-300);
-    --text-secondary: var(--chakra-colors-gray-700);
-    --bg-primary: var(--chakra-colors-blue-600);;
-    --bg-secondary: var(--chakra-colors-blue-300);;
+    --text-primary: #319795;
+    --text-secondary: var(--chakra-colors-gray-300);
+    --bg-primary: white ;
+    --bg-secondary:var(--chakra-colors-gray-300);
   }
   
   .solar {
@@ -344,10 +344,24 @@ body::-webkit-scrollbar-track {
   .solar #solarIcon {
     display: block;
   }
+  .login-row {
+    display: flex;
+  }
+  
+  .login-column {
+    flex: 33.33%;
+    padding: 5px;
+  }
+  @media screen and (max-width: 500px) {
+    .login-column {
+      width: 100%;
+    }
+  }
+
 .container {
   position: relative;
   width: 100%;
-  background-color: #fff;
+  background-color: var(--bg-primary);
   min-height: 100vh;
   overflow: hidden;
 }
@@ -395,14 +409,15 @@ form.sign-in-form {
 
 .title {
   font-size: 2.2rem;
-  color: #444;
+  color: var(--text-primary);
   margin-bottom: 10px;
 }
 
 .input-field {
   max-width: 380px;
   width: 100%;
-  background-color: #f0f0f0;
+  border:1px solid var(--text-primary);
+  background-color: var(--bg-secondary);
   margin: 10px 0;
   height: 55px;
   border-radius: 55px;
@@ -467,12 +482,12 @@ form.sign-in-form {
 
 .btn {
   width: 150px;
-  background-color: #5995fd;
+  background-color: var(--text-primary);
   border: none;
   outline: none;
   height: 49px;
   border-radius: 49px;
-  color: #fff;
+  color:  var(--bg-primary);
   text-transform: uppercase;
   font-weight: 600;
   margin: 10px 0;
@@ -481,7 +496,9 @@ form.sign-in-form {
 }
 
 .btn:hover {
-  background-color: #4d84e2;
+  background-color:  var(--bg-primary);
+  border: 1px solid  var(--text-primary);
+  color: var(--text-primary);
 }
 .panels-container {
   position: absolute;
@@ -533,7 +550,7 @@ form.sign-in-form {
 }
 
 .panel .content {
-  color: #fff;
+  color: var(--bg-primary);
   transition: transform 0.9s ease-in-out;
   transition-delay: 0.6s;
 }
@@ -551,13 +568,18 @@ form.sign-in-form {
 
 .btn.transparent {
   margin: 0;
-  background: none;
-  border: 2px solid #fff;
+  background:none;
+  border: 2px solid var(--bg-primary);
   width: 130px;
   height: 41px;
   font-weight: 600;
   font-size: 0.8rem;
 }
+.btn.transparent:hover {
+  background-color:var(--bg-primary);
+  border: 1px solid var(--text-primary);
+}
+
 
 .right-panel .image,
 .right-panel .content {
@@ -731,4 +753,3 @@ form.sign-in-form {
     left: 50%;
   }
 }
-

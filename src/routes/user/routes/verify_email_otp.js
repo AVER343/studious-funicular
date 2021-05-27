@@ -3,7 +3,7 @@ const router =express.Router()
 var { body,param, validationResult }  = require('express-validator');
 const User = require('../../../db/orm/user/index');
 const pool = require('../../../db/postgres');
-const defaultError = require('../../../utils/response-handling/response-handling(default_error)');
+const responseHanding = require('../../../utils/response-handling/response-handling(default_error)');
 router.post('/email/otp',
             body('email').isEmail(),
             body('otp').isLength({min:4}),
@@ -11,7 +11,7 @@ router.post('/email/otp',
     try{ 
         const errors = validationResult(req);
         if (!errors.isEmpty()){
-            return defaultError({e:errors.array(),res})
+            return responseHanding({e:errors.array(),res})
         }
          let {email,otp} = req.body
         let user = new User({email})
@@ -20,7 +20,7 @@ router.post('/email/otp',
          res.send(user)
     }
     catch(e){
-        defaultError({res,e})
+        responseHanding({res,e})
     }
  })
  router.get('/email/otp/:id',
@@ -29,7 +29,7 @@ router.post('/email/otp',
     try{ 
         const errors = validationResult(req);
         if (!errors.isEmpty()){
-            return defaultError({e:errors.array(),res})
+            return responseHanding({e:errors.array(),res})
         }
             let {id} = req.params
             let email = id
@@ -44,7 +44,7 @@ router.post('/email/otp',
             res.send({messages:[{message:'Email has been sent to your email !'}]})
     }
     catch(e){
-        defaultError({res,e})
+        responseHanding({res,e})
     }
 })
 module.exports = router

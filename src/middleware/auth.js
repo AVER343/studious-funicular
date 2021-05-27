@@ -1,24 +1,27 @@
-const defaultError = require("../utils/response-handling/response-handling(default_error)")
+const responseHanding = require("../utils/response-handling/response-handling(default_error)")
 const jwt = require('jsonwebtoken')
 const User = require("../db/orm/user")
 let authentication =async(req,res,next)=>{
+    
    try{
+       console.log(req.cookies)
        if(!req.cookies.JWT)
        {
-            return defaultError({res,e:{message:'Unauthenticated ! '}})
+            return responseHanding({res,e:{message:'Unauthenticated ! '}})
        }
     const JWT = req.cookies.JWT 
     let verified_user = await jwt.verify(JWT,process.env.JWT_SECRET)
     if(!verified_user){
         throw new Error('Verification failed . Please login again.')
     }
-    let user = await User.findOne({email:verified_user.email})
+    let user = new User({email:verified_user.email})
+    user = await user.findOne({email:verified_user.email})
     req.user = user
     next()
    }
    catch(e)
    {
-       defaultError({res,e})
+       responseHanding({res,e})
    }
 }
 module.exports = authentication

@@ -11,24 +11,29 @@ import { CSSTransition } from 'react-transition-group';
 import { IconButton, useColorMode,chakra } from '@chakra-ui/react';
 import {TO_DARK_SVG,TO_LIGHT_SVG} from './icons/theme'
 import toggleTheme from './util/theme'
+import {connect} from 'react-redux'
+import ResponseHandler from '../response-handling/response-handling';
+import { useRouter } from 'next/router';
+import { handle_Logout } from '../../src/redux/user/user.actions';
 function HeaderComponent(props) {
   const {colorMode,toggleColorMode} = useColorMode()
   useEffect(()=>{
     //on change in theme in rest of the theme change navbar theme
     toggleTheme(colorMode)
-  },[colorMode])
+  },[colorMode,props.user])
+  let router =useRouter()
   return (
     <Navbar>
-       <NavItem icon={'FARMER'}/>
+      <NavItem icon={'FARMER'} onClick={()=>router.push('/')}/>
       <NavItem icon={colorMode=='light' ?TO_DARK_SVG({onClick:toggleColorMode})
                                         :TO_LIGHT_SVG({onClick:toggleColorMode})} />
       <NavItem icon={<PlusIcon />}/>
       <NavItem icon={<BellIcon />} />
       <NavItem icon={<MessengerIcon />} />
       <NavItem icon={<CaretIcon />}>
-            <DropdownMenu {...props}>
-                </DropdownMenu>
+            <DropdownMenu {...props}/>
       </NavItem>
+      <ResponseHandler responses={props.response}/>
     </Navbar>
   );
 }
@@ -46,7 +51,13 @@ function NavItem(props) {
 
   return (
     <li className="header-item">
-      <a href="#" className="icon-button" onClick={() => setOpen(!open)}>
+      <a href="#" className="icon-button" onClick={() => {
+        setOpen(!open);
+        if(props.onClick)
+        {
+          props.onClick()
+        }
+        }}>
         {props.icon}
       </a>
 
@@ -56,6 +67,7 @@ function NavItem(props) {
 }
 
 function DropdownMenu(props) {
+  let router =useRouter()
   const [activeMenu, setActiveMenu] = useState('main');
   const [menuHeight, setMenuHeight] = useState(null);
   const dropdownRef = useRef(null);
@@ -98,12 +110,20 @@ function DropdownMenu(props) {
             goToMenu="settings">
             Settings
           </DropdownItem>
-          <DropdownItem
-            leftIcon="🦧"
-            rightIcon={<ChevronIcon />}
-            goToMenu="login">
-            Login
-          </DropdownItem>
+          {props.user && props.user.email 
+            ?<DropdownItem
+              leftIcon="🦧"
+              onClick={props.HANDLE_LOGOUT}
+              rightIcon={<ChevronIcon />}>
+              Logout
+            </DropdownItem>
+           :<DropdownItem
+              leftIcon="🦧"
+              rightIcon={<ChevronIcon />}
+              goToMenu="login">
+              SignIn
+            </DropdownItem>
+          }
 
         </div>
       </CSSTransition>
@@ -133,15 +153,20 @@ function DropdownMenu(props) {
         onEnter={calcHeight}>
         <div className="menu">
           <DropdownItem goToMenu="main" leftIcon={<ArrowIcon />}>
-            <h2>Login</h2>
+            <h2>SignIn</h2>
           </DropdownItem>
-          <DropdownItem leftIcon="🦘" onClick={()=>{console.log('asda')}}>Login</DropdownItem>
-          <DropdownItem leftIcon="🐸" onClick={()=>{
-
-          }}>Sign Up</DropdownItem>
+          <DropdownItem leftIcon="🦘" onClick={()=>router.push('/signin/login')}>Login</DropdownItem>
+          <DropdownItem leftIcon="🐸" onClick={()=>{router.push('/signin/register')}}>Register</DropdownItem>
         </div>
       </CSSTransition>
     </div>
   );
 }
-export default HeaderComponent;
+let mapStateToProps=(state)=>({
+  response:state.response.response,
+  user:state.user.user
+})
+let mapDispatchToProps=(dispatch)=>({
+  HANDLE_LOGOUT:()=>dispatch(handle_Logout())
+})
+export default connect(mapStateToProps,mapDispatchToProps)(HeaderComponent);

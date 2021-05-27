@@ -3,7 +3,7 @@ const router =express.Router()
 const bcrypt = require('bcryptjs')
 var { param, body, validationResult ,header }  = require('express-validator');
 const User = require('../../../db/orm/user/index');
-const defaultError = require('../../../utils/response-handling/response-handling(default_error)');
+const responseHanding = require('../../../utils/response-handling/response-handling(default_error)');
 const { NO_USER_FOUND } = require('../../../db/orm/user/error_statements');
 router.post('/reset/password',
     body('email').isEmail().withMessage('Invalid Email !'),
@@ -13,7 +13,7 @@ router.post('/reset/password',
     try{ 
             const errors = validationResult(req);
             if (!errors.isEmpty()){
-            return defaultError({e:errors.array(),res})
+            return responseHanding({e:errors.array(),res})
             }
             let {email,password,otp} = req.body
             let user = new User({email})
@@ -26,7 +26,7 @@ router.post('/reset/password',
             res.send({messages:[{message:'Password has been changed !'}]})
     }
     catch(e){
-        defaultError({res,e})
+        responseHanding({res,e})
     }
 })
 router.get('/reset/password/:id',
@@ -35,7 +35,7 @@ router.get('/reset/password/:id',
     try{ 
         const errors = validationResult(req);
         if (!errors.isEmpty()){
-            return defaultError({e:errors.array(),res})
+            return responseHanding({e:errors.array(),res})
         }
             let {id} = req.params
             let email = id
@@ -50,7 +50,7 @@ router.get('/reset/password/:id',
             res.send({messages:[{message:'Email has been sent to your email !'}]})
     }
     catch(e){
-        defaultError({res,e})
+        responseHanding({res,e})
     }
 })
 
