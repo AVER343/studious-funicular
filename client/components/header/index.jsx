@@ -8,11 +8,10 @@ import ArrowIcon  from './icons/arrow.svg';
 import BoltIcon  from './icons/bolt.svg';
 import React, { useState, useEffect, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { IconButton, useColorMode,chakra } from '@chakra-ui/react';
+import { IconButton, useColorMode,chakra,Avatar } from '@chakra-ui/react';
 import {TO_DARK_SVG,TO_LIGHT_SVG} from './icons/theme'
 import toggleTheme from './util/theme'
 import {connect} from 'react-redux'
-import ResponseHandler from '../response-handling/response-handling';
 import { useRouter } from 'next/router';
 import { handle_Logout } from '../../src/redux/user/user.actions';
 function HeaderComponent(props) {
@@ -33,7 +32,7 @@ function HeaderComponent(props) {
       <NavItem icon={<CaretIcon />}>
             <DropdownMenu {...props}/>
       </NavItem>
-      <ResponseHandler responses={props.response}/>
+      {/* <ResponseHandler responses={props.response}/> */}
     </Navbar>
   );
 }

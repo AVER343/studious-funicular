@@ -21,11 +21,16 @@ a {
   background-color: var(--bg-primary);
   padding: 0 1rem;
   border-bottom: var(--border);
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 /* <ul> */
 .header-nav {
   max-width: 100%;
+  
   height: 100%;
   display: flex;
   justify-content:flex-end;
@@ -310,14 +315,14 @@ body::-webkit-scrollbar-track {
   
   .dark {
     --text-primary: #4FD1C5;
-    --text-secondary:  var(--chakra-colors-gray-700);
+    --text-secondary:  var(--chakra-colors-gray-200);
     --bg-primary: var(--chakra-colors-gray-700);
     --bg-secondary: var(--chakra-colors-gray-200);
   }
   
   .light {
     --text-primary: #319795;
-    --text-secondary: var(--chakra-colors-gray-300);
+    --text-secondary: var(--chakra-colors-gray-700);
     --bg-primary: white ;
     --bg-secondary:var(--chakra-colors-gray-300);
   }
@@ -361,7 +366,7 @@ body::-webkit-scrollbar-track {
 .container {
   position: relative;
   width: 100%;
-  background-color: var(--bg-primary);
+  background-color: #fff;
   min-height: 100vh;
   overflow: hidden;
 }
@@ -409,15 +414,14 @@ form.sign-in-form {
 
 .title {
   font-size: 2.2rem;
-  color: var(--text-primary);
+  color: #444;
   margin-bottom: 10px;
 }
 
 .input-field {
   max-width: 380px;
   width: 100%;
-  border:1px solid var(--text-primary);
-  background-color: var(--bg-secondary);
+  background-color: #f0f0f0;
   margin: 10px 0;
   height: 55px;
   border-radius: 55px;
@@ -482,12 +486,12 @@ form.sign-in-form {
 
 .btn {
   width: 150px;
-  background-color: var(--text-primary);
+  background-color: #5995fd;
   border: none;
   outline: none;
   height: 49px;
   border-radius: 49px;
-  color:  var(--bg-primary);
+  color: #fff;
   text-transform: uppercase;
   font-weight: 600;
   margin: 10px 0;
@@ -496,9 +500,7 @@ form.sign-in-form {
 }
 
 .btn:hover {
-  background-color:  var(--bg-primary);
-  border: 1px solid  var(--text-primary);
-  color: var(--text-primary);
+  background-color: #4d84e2;
 }
 .panels-container {
   position: absolute;
@@ -550,7 +552,7 @@ form.sign-in-form {
 }
 
 .panel .content {
-  color: var(--bg-primary);
+  color: #fff;
   transition: transform 0.9s ease-in-out;
   transition-delay: 0.6s;
 }
@@ -568,18 +570,13 @@ form.sign-in-form {
 
 .btn.transparent {
   margin: 0;
-  background:none;
-  border: 2px solid var(--bg-primary);
+  background: none;
+  border: 2px solid #fff;
   width: 130px;
   height: 41px;
   font-weight: 600;
   font-size: 0.8rem;
 }
-.btn.transparent:hover {
-  background-color:var(--bg-primary);
-  border: 1px solid var(--text-primary);
-}
-
 
 .right-panel .image,
 .right-panel .content {

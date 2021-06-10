@@ -4,7 +4,7 @@ async function verifyOTP({email,otp,user}){
         if(!user){
         user = (await this.findOne({email}))[0]
         }
-        if(user.length==0)
+        if(!user || user.length==0)
         {
             throw new Error(NO_USER_FOUND)
         }

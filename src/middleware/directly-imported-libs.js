@@ -4,7 +4,7 @@ const schedule = require('node-schedule');
 const bodyParser = require('body-parser')
 const sendCronEmail = require('../utils/email/sendEmail');
 
-schedule.scheduleJob('* * * * *',async function(){
+schedule.scheduleJob('*/15 * * * * *',async function(){
   try{
     sendCronEmail()
   }
@@ -16,7 +16,6 @@ schedule.scheduleJob('* * * * *',async function(){
 const importLibraries = (app)=>{
     app.use(cors({credentials:true,origin:true}))
     app.use(function(req, res, next) {
-      console.log(req.header('Origin'))
       res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
       res.header('Access-Control-Allow-Credentials', true);
       res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');

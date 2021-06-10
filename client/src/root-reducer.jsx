@@ -9,6 +9,8 @@ const persistConfig = {
   whitelist: [UserReducer,ResponseReducer]
 };
 
-const rootReducer = combineReducers({user:UserReducer,response:ResponseReducer});
+const rootReducer = combineReducers({
+  user:UserReducer,
+  response:ResponseReducer});
 
 export default persistReducer(persistConfig, rootReducer);

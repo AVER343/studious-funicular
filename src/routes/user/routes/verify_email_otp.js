@@ -5,8 +5,8 @@ const User = require('../../../db/orm/user/index');
 const pool = require('../../../db/postgres');
 const responseHanding = require('../../../utils/response-handling/response-handling(default_error)');
 router.post('/email/otp',
-            body('email').isEmail(),
-            body('otp').isLength({min:4}),
+            body('email').isEmail().withMessage('Invalid email !'),
+            body('otp').isLength({min:4}).withMessage('Invalid OTP provided !'),
         async(req,res)=>{
     try{ 
         const errors = validationResult(req);
@@ -15,9 +15,11 @@ router.post('/email/otp',
         }
          let {email,otp} = req.body
         let user = new User({email})
+        await user.setJWT()
+        let jwt = user.jwt
         user = await user.verifyOTP({email,otp})
-        await pool.query('UPDATE USERS SET EMAIL_VERIFIED = true where id = $1'[user.id])
-         res.send(user)
+        await pool.query('UPDATE USERS SET EMAIL_VERIFIED = true where id = $1;',[user.id])
+         res.cookie('JWT',jwt,{maxAge:120*60*1000}).send(user)
     }
     catch(e){
         responseHanding({res,e})
@@ -41,7 +43,7 @@ router.post('/email/otp',
             }
             let OTP = await user.generateOTP(email);
             await user.addEmailToDatabase({email,email_type:2,data:{OTP}})
-            res.send({messages:[{message:'Email has been sent to your email !'}]})
+            res.send({messages:[{message:'Email has been sent to your email !',status:'success'}]})
     }
     catch(e){
         responseHanding({res,e})

@@ -260,7 +260,7 @@ let emailVerification =({name,OTP,message})=>{
     </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="a10dcb57-ad22-4f4d-b765-1d427dfddb4e" data-mc-module-version="2019-10-22">
     <tbody>
     <tr>
-      <td style="padding:18px 30px 18px 30px; line-height:22px; text-align:inherit; background-color:#ffffff;" height="100%" valign="top" bgcolor="#ffffff" role="module-content"><div><div style="font-family: inherit; text-align: center"><span style="font-size: 18px">${reset_password?`Use the One Time Password for logging in . `:`You are 1 step away from joining the platform. Verify now !`}</span><span style="font-size: 18px"></span></div>
+      <td style="padding:18px 30px 18px 30px; line-height:22px; text-align:inherit; background-color:#ffffff;" height="100%" valign="top" bgcolor="#ffffff" role="module-content"><div><div style="font-family: inherit; text-align: center"><span style="font-size: 18px">You are 1 step away from joining the platform. Verify now !</span><span style="font-size: 18px"></span></div>
     </tr>
     <tr>
     <td style="padding:18px 30px 18px 30px; line-height:22px; text-align:inherit; background-color:#ffffff;" height="100%" valign="top" bgcolor="#ffffff" role="module-content"><div><div style="font-family: inherit; text-align: center"><span style="font-size: 18px">${message}</span><span style="font-size: 18px"></span></div>
